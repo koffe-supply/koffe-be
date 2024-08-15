@@ -1,0 +1,23 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Thư mục môi trường
+# .env
+
+# Output của build
+dist/
+build/
+
+# Hệ điều hành
+.DS_Store
+Thumbs.db
+
+# Thư mục IDE/Editor
+.vscode/
+.idea/
+
+# Log tạm thời
+*.log
