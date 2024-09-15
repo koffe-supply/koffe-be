@@ -5,7 +5,8 @@ const {
   getUserById,
   deleteUser,
   updateUser,
-} = require("../controllers/userController");
+  loginUser, // Added loginUser
+} = require("../controllers/user.controller");
 
 const router = express.Router();
 
@@ -16,26 +17,31 @@ const router = express.Router();
  *     User:
  *       type: object
  *       required:
- *         - name
- *         - email
+ *         - fullName
+ *         - username
  *         - password
+ *         - phone
  *       properties:
  *         id:
  *           type: string
  *           description: The auto-generated id of the user
- *         name:
+ *         fullName:
  *           type: string
- *           description: The name of the user
- *         email:
+ *           description: The full name of the user
+ *         username:
  *           type: string
- *           description: The email of the user
+ *           description: The unique username of the user
  *         password:
  *           type: string
- *           description: The password of the user
+ *           description: The hashed password of the user
+ *         phone:
+ *           type: string
+ *           description: The user's phone number
  *       example:
- *         name: John Doe
- *         email: john@example.com
+ *         fullName: John Doe
+ *         username: johndoe
  *         password: password123
+ *         phone: "1234567890"
  */
 
 /**
@@ -64,10 +70,57 @@ const router = express.Router();
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User'
+ *       400:
+ *         description: Username already exists
  *       500:
  *         description: Some server error
  */
 router.post("/register", createUser);
+
+/**
+ * @swagger
+ * /api/users/login:
+ *   post:
+ *     summary: User login
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *               - password
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *             example:
+ *               username: johndoe
+ *               password: password123
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     username:
+ *                       type: string
+ *       401:
+ *         description: Invalid username or password
+ *       500:
+ *         description: Some server error
+ */
+router.post("/login", loginUser); // Added login route
 
 /**
  * @swagger
@@ -84,6 +137,8 @@ router.post("/register", createUser);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/User'
+ *       500:
+ *         description: Some server error
  */
 router.get("/", getAllUsers);
 
@@ -103,12 +158,14 @@ router.get("/", getAllUsers);
  *     responses:
  *       200:
  *         description: The user description by id
- *         contents:
+ *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User'
  *       404:
  *         description: The user was not found
+ *       500:
+ *         description: Some server error
  */
 router.get("/:id", getUserById);
 
@@ -130,6 +187,8 @@ router.get("/:id", getUserById);
  *         description: The user was deleted
  *       404:
  *         description: The user was not found
+ *       500:
+ *         description: Some server error
  */
 router.delete("/:id", deleteUser);
 
@@ -137,7 +196,7 @@ router.delete("/:id", deleteUser);
  * @swagger
  * /api/users/{id}:
  *   put:
- *     summary: Update the user by the id
+ *     summary: Update the user by id
  *     tags: [Users]
  *     parameters:
  *       - in: path
@@ -162,7 +221,7 @@ router.delete("/:id", deleteUser);
  *       404:
  *         description: The user was not found
  *       500:
- *         description: Some error happened
+ *         description: Some server error
  */
 router.put("/:id", updateUser);
 
