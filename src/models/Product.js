@@ -63,6 +63,10 @@ const ProductSchema = new mongoose.Schema(
       type: Array, // Array of strings for multiple images
       required: true,
     },
+    pricePerGram: {
+      type: Number,
+      required: true,
+    },
   },
   { timestamps: true }
 );

@@ -35,6 +35,9 @@ const router = express.Router();
  *         description:
  *           type: string
  *           description: The description of the product
+ *         pricePerKilogram:
+ *           type: number
+ *           description: price of product
  *         descriptionMore:
  *           type: object
  *           properties:
@@ -65,6 +68,7 @@ const router = express.Router();
  *       example:
  *         productName: Premium Coffee
  *         tags: [ "60c72b2f5f9b2c001c8e4f1e" ]
+ *         pricePerGram: 200
  *         description: High-quality premium coffee
  *         descriptionMore:
  *           roast_level: Medium
