@@ -29,6 +29,14 @@ const OrderDetailSchema = new mongoose.Schema({
     type: Number,
     required: false,
   },
+  note: {
+    type: String,
+    required: false,
+  },
+  letterSend: {
+    type: String,
+    required: false,
+  },
 });
 
 // Order schema

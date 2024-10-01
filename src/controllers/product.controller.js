@@ -11,7 +11,7 @@ const createProduct = async (req, res) => {
       description,
       descriptionMore,
       type,
-      pricePerGram,
+      price,
       image,
       imageMore,
     } = req.body;
@@ -46,7 +46,7 @@ const createProduct = async (req, res) => {
       tags,
       description,
       descriptionMore,
-      pricePerGram,
+      price,
       type,
       image,
       imageMore,
@@ -115,6 +115,7 @@ const updateProduct = async (req, res) => {
       descriptionMore,
       type,
       image,
+      price,
       imageMore,
     } = req.body;
 
@@ -151,6 +152,7 @@ const updateProduct = async (req, res) => {
     product.type = type || product.type;
     product.image = image || product.image;
     product.imageMore = imageMore || product.imageMore;
+    product.price = imageMore || product.price;
 
     await product.save(); // Save updated product
 
