@@ -5,35 +5,27 @@ const OrderDetailSchema = new mongoose.Schema({
   productId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Product", // Reference to the Product model
-    required: true,
+    required: false,
   },
   quantity: {
     type: Number,
-    required: true,
+    required: false,
     min: 1, // Ensure at least 1 product is ordered
   },
-  price: {
+  finalPrice: {
     type: Number,
     required: true,
     min: 0, // Price should be non-negative
   },
   size: {
-    type: Number,
+    type: String,
     required: false,
   },
   weight: {
     type: Number,
     required: false,
   },
-  package_color: {
-    type: Number,
-    required: false,
-  },
-  note: {
-    type: String,
-    required: false,
-  },
-  letterSend: {
+  bag: {
     type: String,
     required: false,
   },
@@ -52,29 +44,29 @@ const OrderSchema = new mongoose.Schema(
     },
     totalPrice: {
       type: Number,
-      required: true,
+      required: false,
       min: 0, // Price should be non-negative
     },
     shippingFee: {
       type: Number,
-      required: true,
+      required: false,
       min: 0, // Price should be non-negative
     },
     customerName: {
       type: String,
-      required: true,
+      required: false,
     },
     address: {
       type: String,
-      required: true,
+      required: false,
     },
     fullAddress: {
       type: String,
-      required: true,
+      required: false,
     },
     city: {
       type: String,
-      required: true,
+      required: false,
     },
     postalCode: {
       type: String,
@@ -84,10 +76,7 @@ const OrderSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    payment: {
-      type: Number,
-      required: true,
-    },
+
     approveBy: {
       type: String,
       required: false,
@@ -95,13 +84,16 @@ const OrderSchema = new mongoose.Schema(
     },
     orderStatus: {
       type: Number,
-      required: true,
-      default: 0,
-    },
-    paymentStatus: {
-      type: Number,
       required: false,
       default: 0,
+    },
+    note: {
+      type: String,
+      required: false,
+    },
+    letterSend: {
+      type: String,
+      required: false,
     },
   },
   { timestamps: true }
